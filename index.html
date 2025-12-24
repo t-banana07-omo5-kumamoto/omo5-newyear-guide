@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>OMO5熊本：年末年始ご近所ガイド 2025-2026</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,34 +20,37 @@
     body { font-family: 'Noto Sans JP', sans-serif; background-color: var(--omo-bg); color: var(--omo-black); }
     .chart-container { position: relative; width: 100%; height: 240px; margin: auto; }
     .date-active { background-color: var(--omo-red) !important; color: white !important; transform: scale(1.05); }
-    .cat-active  { background-color: var(--omo-gold) !important; color: white !important; }
-    .custom-shadow { box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.02); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   </style>
 </head>
 
-<body class="antialiased min-h-screen">
+<body class="min-h-screen">
 
   <!-- Header -->
-  <header class="bg-stone-900 text-white pt-10 pb-14 px-6 rounded-b-[3rem] shadow-2xl relative overflow-hidden">
-    <div class="max-w-2xl mx-auto relative z-10">
-      <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-600/20 text-amber-500 border border-amber-600/30 rounded-full text-[10px] font-bold mb-4">
-        OMO5 KUMAMOTO NEIGHBORHOOD GUIDE
-      </div>
-      <h1 class="text-3xl md:text-5xl font-black leading-tight mb-3">
-        年末年始<br><span class="text-amber-500">ご近所営業マップ</span><br>
-        <span class="text-white/50 text-2xl md:text-3xl">2025-2026</span>
-      </h1>
-      <p class="text-stone-400 text-xs md:text-sm">
-        CSVを直接読み込み、<b>抜けが出ない</b>方式に変更しました。<br>
-        ※店舗名にURLが混ざっていても、表示上は自動で整形します。
-      </p>
+  <header class="relative overflow-hidden">
+    <div class="bg-gradient-to-br from-stone-950 via-stone-900 to-amber-900 rounded-b-[3rem] pt-10 pb-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-bold tracking-wider mb-6">
+          <span>OMO5 KUMAMOTO NEIGHBORHOOD GUIDE</span>
+        </div>
 
-      <div id="load-msg" class="mt-4 text-[11px] text-stone-300 hidden">
-        データを読み込んでいます…
+        <h1 class="text-3xl md:text-5xl font-black leading-tight mb-3">
+          年末年始<br><span class="text-amber-500">ご近所営業マップ</span><br>
+          <span class="text-white/50 text-2xl md:text-3xl">2025-2026</span>
+        </h1>
+
+        <p class="text-stone-400 text-xs md:text-sm">
+          CSVを直接読み込み、<b>抜けが出ない</b>方式に変更しました。<br>
+          ※店舗名にURLが混ざっていても、表示上は自動で整形します。
+        </p>
+
+        <div id="load-msg" class="mt-4 text-[11px] text-stone-300 hidden">
+          データを読み込んでいます…
+        </div>
       </div>
+      <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl"></div>
     </div>
-    <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl"></div>
   </header>
 
   <main class="max-w-4xl mx-auto px-4 -mt-8">
@@ -55,366 +58,162 @@
     <!-- Date Selector -->
     <div class="bg-white rounded-3xl p-3 shadow-2xl border border-stone-100 sticky top-4 z-50 mb-8">
       <div class="flex overflow-x-auto gap-2 no-scrollbar" id="date-tabs">
-        <button onclick="changeDate('12/30')" class="date-btn flex-shrink-0 flex-grow basis-1/6 min-w-[70px] border border-stone-100 rounded-2xl py-3 text-center transition-all" data-date="12/30">
-          <span class="block text-[10px] opacity-50">12/30</span><span class="block font-bold">火</span>
+        <button onclick="changeDate('12/30')" class="date-btn flex-shrink-0 w-24 p-3 rounded-2xl bg-stone-50 hover:bg-stone-100 transition text-center">
+          <div class="text-xs text-stone-500 font-bold">12/30</div>
+          <div class="text-lg font-black">火</div>
         </button>
-        <button onclick="changeDate('12/31')" class="date-btn flex-shrink-0 flex-grow basis-1/6 min-w-[70px] border border-stone-100 rounded-2xl py-3 text-center transition-all" data-date="12/31">
-          <span class="block text-[10px] opacity-50">12/31</span><span class="block font-bold">大晦日</span>
+        <button onclick="changeDate('12/31')" class="date-btn flex-shrink-0 w-24 p-3 rounded-2xl bg-stone-50 hover:bg-stone-100 transition text-center">
+          <div class="text-xs text-stone-500 font-bold">12/31</div>
+          <div class="text-lg font-black">大晦日</div>
         </button>
-        <button onclick="changeDate('1/1')" class="date-btn flex-shrink-0 flex-grow basis-1/6 min-w-[70px] border border-stone-100 rounded-2xl py-3 text-center transition-all" data-date="1/1">
-          <span class="block text-[10px] text-rose-500">1/1</span><span class="block font-bold text-rose-600">元旦</span>
+        <button onclick="changeDate('1/1')" class="date-btn flex-shrink-0 w-24 p-3 rounded-2xl bg-stone-50 hover:bg-stone-100 transition text-center">
+          <div class="text-xs text-stone-500 font-bold">1/1</div>
+          <div class="text-lg font-black text-red-700">元旦</div>
         </button>
-        <button onclick="changeDate('1/2')" class="date-btn flex-shrink-0 flex-grow basis-1/6 min-w-[70px] border border-stone-100 rounded-2xl py-3 text-center transition-all" data-date="1/2">
-          <span class="block text-[10px] opacity-50">1/2</span><span class="block font-bold">初売</span>
+        <button onclick="changeDate('1/2')" class="date-btn flex-shrink-0 w-24 p-3 rounded-2xl bg-stone-50 hover:bg-stone-100 transition text-center">
+          <div class="text-xs text-stone-500 font-bold">1/2</div>
+          <div class="text-lg font-black">初売</div>
         </button>
-        <button onclick="changeDate('1/3')" class="date-btn flex-shrink-0 flex-grow basis-1/6 min-w-[70px] border border-stone-100 rounded-2xl py-3 text-center transition-all" data-date="1/3">
-          <span class="block text-[10px] opacity-50">1/3</span><span class="block font-bold">土</span>
+        <button onclick="changeDate('1/3')" class="date-btn flex-shrink-0 w-24 p-3 rounded-2xl bg-stone-50 hover:bg-stone-100 transition text-center">
+          <div class="text-xs text-stone-500 font-bold">1/3</div>
+          <div class="text-lg font-black">土</div>
         </button>
-        <button onclick="changeDate('1/4')" class="date-btn flex-shrink-0 flex-grow basis-1/6 min-w-[70px] border border-stone-100 rounded-2xl py-3 text-center transition-all" data-date="1/4">
-          <span class="block text-[10px] opacity-50">1/4</span><span class="block font-bold">日</span>
+        <button onclick="changeDate('1/4')" class="date-btn flex-shrink-0 w-24 p-3 rounded-2xl bg-stone-50 hover:bg-stone-100 transition text-center">
+          <div class="text-xs text-stone-500 font-bold">1/4</div>
+          <div class="text-lg font-black">日</div>
         </button>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-      <!-- Left Panel -->
-      <div class="space-y-6">
-        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-stone-100">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="font-bold">本日の活気</h3>
-            <div class="text-right">
-              <span id="open-count" class="text-2xl font-black text-green-600">0</span>
-              <span class="text-[10px] text-stone-400"> / <span id="total-count">0</span>件 営業</span>
-            </div>
-          </div>
-          <div class="chart-container">
-            <canvas id="ratioChart"></canvas>
-          </div>
-          <div class="mt-3 text-[11px] text-stone-500">
-            営業扱い：その日の欄が「休」/「休み」を含まないもの
-          </div>
-        </div>
-
-        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-stone-100">
-          <h3 class="font-bold mb-4">目的で絞り込む</h3>
-          <div id="cat-buttons" class="flex flex-wrap gap-2">
-            <!-- category buttons injected -->
-          </div>
-          <div class="mt-3 text-[11px] text-stone-500">
-            ※CSVにカテゴリ列が無いので、店名から<b>自動推定</b>しています（後で改善できます）。
-          </div>
-        </div>
-      </div>
-
-      <!-- Right Panel -->
-      <div class="lg:col-span-2 space-y-4">
-        <div id="shop-list" class="space-y-4"></div>
-
-        <div id="empty-state" class="hidden py-20 text-center bg-stone-100 rounded-[2.5rem] border-2 border-dashed border-stone-200">
-          <p class="text-stone-400 text-sm">該当する店舗がありません。</p>
-        </div>
-
-        <div id="error-state" class="hidden py-14 text-center bg-red-50 rounded-[2.5rem] border border-red-200">
-          <p class="text-red-700 font-bold">CSVの読み込みに失敗しました。</p>
-          <p class="text-red-700/80 text-sm mt-2">
-            ファイル名が原因のことが多いです。<br>
-            同じフォルダに <b>data.csv</b> という名前で置いてください。
-          </p>
-        </div>
+    <!-- Error State -->
+    <div id="error-state" class="hidden mb-6">
+      <div class="bg-red-50 border border-red-200 text-red-800 rounded-2xl p-4 text-sm">
+        CSVの読み込みに失敗しました。GitHub Pages上でCSVファイルが同階層に存在するか、ファイル名が一致しているかをご確認ください。
       </div>
     </div>
+
+    <!-- Overview -->
+    <section class="grid md:grid-cols-2 gap-6 mb-10">
+      <div class="bg-white rounded-3xl p-6 shadow-lg border border-stone-100">
+        <div class="flex items-end justify-between mb-4">
+          <h2 class="text-lg font-black">本日の活気</h2>
+          <div class="text-right">
+            <div class="text-3xl font-black text-emerald-600" id="open-count">0</div>
+            <div class="text-xs text-stone-400"><span id="total-count">0</span>件中 営業</div>
+          </div>
+        </div>
+        <div class="chart-container">
+          <canvas id="openChart"></canvas>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-3xl p-6 shadow-lg border border-stone-100">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div class="text-xs font-bold text-stone-400">今日のおすすめ</div>
+            <div class="text-lg font-black mt-1" id="featured-name">—</div>
+            <div class="text-sm text-stone-500 mt-1" id="featured-area">—</div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs font-bold text-stone-400">STATUS</div>
+            <div class="text-base font-black mt-1" id="featured-status">—</div>
+          </div>
+        </div>
+        <div class="mt-4 text-xs text-stone-500 leading-relaxed" id="featured-note"></div>
+      </div>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-base font-black">カテゴリ</h3>
+        <div class="text-xs text-stone-400">タップで絞り込み</div>
+      </div>
+      <div class="flex flex-wrap gap-2" id="cat-buttons"></div>
+    </section>
+
+    <!-- List -->
+    <section class="mb-16">
+      <div class="bg-white rounded-3xl p-4 md:p-6 shadow-lg border border-stone-100">
+        <div class="flex items-center justify-between mb-4">
+          <div class="text-sm font-black">
+            <span id="current-date">—</span> の営業状況
+          </div>
+          <div class="text-xs text-stone-400">
+            <span id="shown-count">0</span>件表示
+          </div>
+        </div>
+        <div class="space-y-3" id="shop-list"></div>
+      </div>
+    </section>
+
   </main>
-
-  <footer class="mt-20 py-12 bg-stone-900 text-stone-500 px-6 text-center">
-    <p class="text-xs font-bold text-white mb-2">OMO5熊本 by 星野リゾート</p>
-    <p class="text-[10px] max-w-xs mx-auto">
-      ※情報はCSVから抽出した年末年始営業データです。<br>
-      当日の急な営業変更等については各店舗へお電話にてご確認ください。
-    </p>
-  </footer>
 
   <script>
     // =========================
-    // 1) CSV PATH
+    // 1) Settings
     // =========================
-    // GitHub Pages で URL エンコード事故を避けるため、CSVは「data.csv」にリネーム推奨。
-    const CSV_PATH = './data.csv';
+    const CSV_PATH = "./%E3%80%902026%E3%80%91%E5%B9%B4%E6%9C%AB%E5%B9%B4%E5%A7%8B%E3%81%94%E8%BF%91%E6%89%80%E6%83%85%E5%A0%B1%20%20-%202025%E2%80%902026.csv";
 
     // =========================
-    // 2) App State
+    // 2) State
     // =========================
-    let db = [];               // {name, cat, schedule, note, rawName}
-    let curDate = '1/1';
-    let curCat  = 'all';
-    let myChart = null;
+    let data = [];
+    let curDate = "1/1";
+    let curCat = "ALL";
+    let chart;
 
     // =========================
     // 3) Helpers
     // =========================
-    const DATE_KEYS = ['12/30', '12/31', '1/1', '1/2', '1/3', '1/4'];
+    function normalizeStatus(s) {
+      const t = (s || "").trim();
+      if (!t) return "不明";
+      if (t.includes("休")) return "休み";
+      if (t.includes("営") || t.includes("OPEN") || t.includes("営業")) return "営業";
+      return t;
+    }
 
-    function normalizeText(s) {
-      return String(s ?? '')
-        .replace(/\r/g, '')
-        .replace(/\n/g, ' ')
-        .replace(/[ 　]+/g, ' ')
-        .trim();
+    function statusBadge(status) {
+      const s = normalizeStatus(status);
+      if (s === "営業") return `<span class="px-2 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">営業</span>`;
+      if (s === "休み") return `<span class="px-2 py-1 rounded-full text-[11px] font-bold bg-stone-100 text-stone-600 border border-stone-200">休業</span>`;
+      return `<span class="px-2 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200">${s}</span>`;
     }
 
     function splitNameAndUrl(raw) {
-      const s = normalizeText(raw);
-      // URLが混ざっていたら分離（表示名だけ使う）
-      const m = s.match(/^(.*?)(https?:\/\/\S+)$/);
-      if (!m) return { name: s, url: '' };
-      return { name: normalizeText(m[1]), url: m[2] };
-    }
-
-    function guessCategory(name) {
-      const n = name;
-      // ラーメン系（ざっくり）
-      if (/(ラーメン|Ajisen|味千|桂花|太平燕)/i.test(n)) return 'ramen';
-
-      // 百貨店・商業施設っぽい
-      if (/(百貨店|COCOSA|サクラマチクマモト（全館）|サクラマチ\(|HAB|パルコ|アミュ|イオン|商店街)/.test(n)) return 'mall';
-
-      // その他は飲食
-      return 'food';
-    }
-
-    function isClosed(status) {
-      const s = normalizeText(status);
-      return /休(み)?/.test(s);
-    }
-
-    function statusLabel(status) {
-      const s = normalizeText(status);
-      if (!s) return '—';
-      // 全角コロンの見た目調整
-      return s.replace(/：/g, ':');
-    }
-
-    function catLabel(cat) {
-      switch (cat) {
-        case 'mall': return '大型・百貨店';
-        case 'food': return '飲食店';
-        case 'ramen': return 'ラーメン';
-        default: return 'その他';
-      }
+      const str = (raw || "").trim();
+      const urlMatch = str.match(/https?:\/\/\S+/);
+      if (!urlMatch) return { name: str, url: "" };
+      const url = urlMatch[0].replace(/[),。、]\s*$/, "");
+      const name = str.replace(urlMatch[0], "").trim();
+      return { name: name || str, url };
     }
 
     // =========================
-    // 4) UI Actions
+    // 4) Rendering
     // =========================
-    function changeDate(date) {
-      curDate = date;
-      document.querySelectorAll('.date-btn').forEach(btn => {
-        btn.classList.toggle('date-active', btn.dataset.date === date);
-      });
-      render();
+    function renderCatButtons() {
+      const cats = Array.from(new Set(data.map(d => (d.cat || "").trim()).filter(Boolean)));
+      const root = document.getElementById("cat-buttons");
+      const mkBtn = (label, value) => {
+        const active = (curCat === value);
+        return `
+          <button class="px-4 py-2 rounded-full text-xs font-bold border transition
+            ${active ? "bg-stone-900 text-white border-stone-900" : "bg-white text-stone-700 border-stone-200 hover:bg-stone-50"}"
+            onclick="setCat('${value}')">
+            ${label}
+          </button>`;
+      };
+      root.innerHTML = mkBtn("すべて", "ALL") + cats.map(c => mkBtn(c, c)).join("");
     }
 
     function setCat(cat) {
       curCat = cat;
-      document.querySelectorAll('.cat-btn').forEach(btn => {
-        btn.classList.toggle('cat-active', btn.dataset.cat === cat);
-      });
-      render();
+      renderCatButtons();
+      changeDate(curDate);
     }
 
-    // =========================
-    // 5) Rendering
-    // =========================
-    function renderCatButtons() {
-      const box = document.getElementById('cat-buttons');
-      box.innerHTML = '';
-
-      const cats = Array.from(new Set(db.map(d => d.cat))).sort((a,b) => a.localeCompare(b));
-      const allCats = ['all', ...cats];
-
-      allCats.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'cat-btn px-4 py-2 bg-stone-100 rounded-full text-[11px] font-bold transition';
-        btn.dataset.cat = cat;
-        btn.onclick = () => setCat(cat);
-        btn.textContent = (cat === 'all') ? 'すべて' : catLabel(cat);
-        if (cat === 'all') btn.classList.add('cat-active');
-        box.appendChild(btn);
-      });
-    }
-
-    function render() {
-      const listContainer = document.getElementById('shop-list');
-      const emptyState = document.getElementById('empty-state');
-
-      listContainer.innerHTML = '';
-
-      const filtered = db.filter(d => curCat === 'all' || d.cat === curCat);
-
-      let open = 0;
-      let total = filtered.length;
-
-      filtered.forEach(d => {
-        const status = d.schedule[curDate] ?? '';
-        const closed = isClosed(status);
-
-        if (!closed) open++;
-
-        const card = document.createElement('div');
-        card.className = `bg-white p-5 rounded-[2rem] shadow-sm border border-stone-100 flex justify-between items-center transition-all ${closed ? 'opacity-40 grayscale' : 'hover:custom-shadow'}`;
-
-        const badge = closed
-          ? `<span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] font-bold rounded">休業</span>`
-          : `<span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded">営業</span>`;
-
-        const note = normalizeText(d.note) || '年末年始特別営業';
-        const stat = statusLabel(status);
-
-        card.innerHTML = `
-          <div class="flex-grow">
-            <div class="flex items-center gap-2 mb-1">
-              ${badge}
-              <h4 class="font-bold text-sm text-stone-800">${d.name}</h4>
-            </div>
-            <p class="text-[10px] text-stone-400 max-w-[340px]">${note}</p>
-          </div>
-          <div class="text-right flex-shrink-0 ml-4">
-            <p class="text-xs font-black text-stone-800">${stat}</p>
-            <p class="text-[8px] text-stone-400 uppercase tracking-widest">Status</p>
-          </div>
-        `;
-        listContainer.appendChild(card);
-      });
-
-      emptyState.classList.toggle('hidden', total > 0);
-
-      document.getElementById('open-count').textContent = open;
-      document.getElementById('total-count').textContent = total;
-
-      updateStats(open, total - open);
-    }
-
-    function updateStats(openCount, closeCount) {
-      const ctx = document.getElementById('ratioChart').getContext('2d');
-      if (myChart) myChart.destroy();
-      myChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-          datasets: [{
-            data: [openCount, closeCount],
-            backgroundColor: ['#10b981', '#e5e7eb'],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          cutout: '85%',
-          plugins: { tooltip: { enabled: false } }
-        }
-      });
-    }
-
-    // =========================
-    // 6) CSV Loader
-    // =========================
-    async function loadCsv() {
-      const msg = document.getElementById('load-msg');
-      const err = document.getElementById('error-state');
-
-      try {
-        const res = await fetch(CSV_PATH, { cache: 'no-store' });
-        if (!res.ok) throw new Error('fetch failed');
-        const text = await res.text();
-
-        const parsed = Papa.parse(text, {
-          skipEmptyLines: true
-        });
-
-        // 期待形式：
-        // [0] タイトル行、[1] 見出し行（店名, 日付… , 備考）、
-        // 以降がデータ行、という想定（多少ズレても拾う）
-        const rows = parsed.data
-          .map(r => r.map(c => normalizeText(c)))
-          .filter(r => r.some(c => c !== ''));
-
-        // 「店名」が入る行を探してヘッダー基準行とみなす
-        const headerIdx = rows.findIndex(r => r.includes('店名'));
-        const start = (headerIdx >= 0) ? headerIdx + 1 : 0;
-
-        const out = [];
-        for (let i = start; i < rows.length; i++) {
-          const r = rows[i];
-
-          // 3列目（店名）が空ならスキップ
-          const rawName = r[2] ?? '';
-          if (!rawName || rawName === '店名') continue;
-
-          const { name } = splitNameAndUrl(rawName);
-
-          const schedule = {
-            '12/30': r[3] ?? '',
-            '12/31': r[4] ?? '',
-            '1/1'  : r[5] ?? '',
-            '1/2'  : r[6] ?? '',
-            '1/3'  : r[7] ?? '',
-            '1/4'  : r[8] ?? ''
-          };
-
-          // 備考は最終列付近（原データが揺れるため後ろから探す）
-          let note = '';
-          for (let j = r.length - 1; j >= 0; j--) {
-            if (r[j]) { note = r[j]; break; }
-          }
-
-          out.push({
-            name,
-            rawName,
-            cat: guessCategory(name),
-            schedule,
-            note
-          });
-        }
-
-        // 同名重複を統合（最初を優先、空欄だけ埋める）
-        const merged = new Map();
-        out.forEach(item => {
-          const key = item.name;
-          if (!merged.has(key)) {
-            merged.set(key, item);
-            return;
-          }
-          const cur = merged.get(key);
-          DATE_KEYS.forEach(k => {
-            if (!cur.schedule[k] && item.schedule[k]) cur.schedule[k] = item.schedule[k];
-          });
-          if (!cur.note && item.note) cur.note = item.note;
-        });
-
-        db = Array.from(merged.values())
-          .filter(d => d.name)  // 念のため
-          .sort((a,b) => a.name.localeCompare(b.name, 'ja'));
-
-        // 成功時はメッセージを表示しない（失敗時のみ表示）
-        msg.textContent = '';
-        msg.classList.add('hidden');
-        err.classList.add('hidden');
-        renderCatButtons();
-        changeDate(curDate);
-
-      } catch (e) {
-        err.classList.remove('hidden');
-        msg.classList.remove('hidden');
-        msg.textContent = '読み込み失敗（CSVを取得できませんでした）';
-        console.error(e);
-      }
-    }
-
-    window.onload = () => {
-      // 初期ハイライト
-      document.querySelectorAll('.date-btn').forEach(btn => {
-        btn.classList.toggle('date-active', btn.dataset.date === curDate);
-      });
-      loadCsv();
-    };
-  </script>
-</body>
-</html>
+    function pickFeatured(list) {
+      if (!list.length) return null;
+      const open = l
